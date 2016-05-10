@@ -139,6 +139,15 @@ if [ -n "${PRE_CREATE_DB}" ]; then
           done
         fi
 
+        #Create pre-defined Continuous Queries
+        echo "=> Creating Continuous Queries"
+        if [ -n ${CONTINUOUS_QUERIES} ]; then
+          #read file, store each line in cqs
+          while read -r line; do
+            influx -host=${INFLUX_HOST} -port=${INFLUX_API_PORT} -username=${ADMIN_USER} -password="${PASS}" -execute="$line"
+          done < "$CONTINUOUS_QUERIES"
+        fi
+
         touch "/data/.pre_db_created"
     fi
 else

@@ -11,9 +11,11 @@ RUN curl -s -o /tmp/influxdb_latest_amd64.deb https://s3.amazonaws.com/influxdb/
 ADD types.db /usr/share/collectd/types.db
 ADD config.toml /config/config.toml
 ADD run.sh /run.sh
+#ADD continuous_queries.txt /config/continuous_queries.txt
 RUN chmod +x /*.sh
 
 #ENV PRE_CREATE_DB mon
+#ENV CONTINUOUS_QUERIES /config/continuous_queries.txt
 ENV SSL_SUPPORT **False**
 ENV SSL_CERT **None**
 
